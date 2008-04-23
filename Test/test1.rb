@@ -258,6 +258,38 @@ foo(bar(foo(bar(foo(bar)))))
 foo[bar[foo[bar[foo[bar]]]]]
 foo.bar.foo.bar.foo.bar
 
+123::to_s
+123::   to_s
+123  :: to_s
+123   ::to_s
+
+123.to_s
+123    .to_s
+123  .  to_s
+123.    to_s
+
+123::to_s::to_i
+123   ::to_s::   to_i
+123   ::to_s.    to_i
+123   ::to_s  .  to_i::   to_s
+123   ::to_s    .to_i::   to_s
+123::   to_s
+123::   to_s::   to_i
+123::   to_s::   to_i::   to_s::   to_i
+# 123   ::to_s   ::to_i
+# ~> -:1: syntax error, unexpected tIDENTIFIER, expecting tCONSTANT
+# 123  :: to_s  :: to_i
+# ~> -:1: syntax error, unexpected tIDENTIFIER, expecting tCONSTANT
+# 123::   to_s   ::to_i
+# ~> -:1: syntax error, unexpected tIDENTIFIER, expecting tCONSTANT
+123.    to_s    .to_i
+123  .  to_s  .  to_i
+123    .to_s.    to_i
+
+
+
+
+
 # Regular Variables
 foo
 bar
@@ -353,7 +385,6 @@ thing.fred? :someone
 thing.fred? thing2, :someone
 
 begin = {"(?=\\w)\\s*\\?:"}
-
 
 ############
 #literal capable of interpolation:	 

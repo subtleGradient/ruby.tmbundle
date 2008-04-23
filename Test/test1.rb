@@ -188,9 +188,9 @@ p password=(  'something')
 # ~> -:1: syntax error, unexpected '(', expecting $end
 # ~> fred[]()
 # ~>        ^
-def fred();     nil ;end
-def fred.fred() nil ;end
-def fred.[]();  nil ;end
+def fred()      nil end
+def fred.fred() nil end
+def fred.[]()   nil end
 
 p fred()[]
 p fred().[]()
@@ -375,9 +375,12 @@ stuff here too
 
 ############
 #literal incapable of interpolation
-%w(a b#{42}c) 					#-> ["a", "b#{42}c"]############
-%w(ab c\nd \\\)ef)				# heredoc tests
+%w(a b#{42}c) 					#-> ["a", "b#{42}c"]
+%w(ab c\nd \\\)ef)			#-> ["ab", "c\\nd", "\\)ef"]
 
+
+############
+# heredoc tests
 append << not_heredoc
 
 heredoc = <<END # C heredoc

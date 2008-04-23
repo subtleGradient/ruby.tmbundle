@@ -1650,7 +1650,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;\=\s*&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh|[Jj]ava))</string>
+			<string>(?=(?&gt;\=\s*&lt;&lt;(\w+))(?!\s+#\s*([Cc]|sh|[Jj]ava)))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1689,7 +1689,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;\=\s*&lt;&lt;"([^"]*)")(?!\s+#\s*([Cc]|sh|[Jj]ava))</string>
+			<string>(?=(?&gt;\=\s*&lt;&lt;"([^"]*)")(?!\s+#\s*([Cc]|sh|[Jj]ava)))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1867,7 +1867,48 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;-(\w+))</string>
+			<string>(?=(?&gt;&lt;&lt;-(\w+)).*(?&gt;&lt;&lt;-(\w+))+)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>nested heredoc with indented terminator</string>
+			<key>end</key>
+			<string>^\s*\2$</string>
+			<key>endCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.end.ruby</string>
+				</dict>
+			</dict>
+			<key>name</key>
+			<string>string.unquoted.heredoc.ruby</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>#heredoc</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#interpolated_ruby</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#escaped_char</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>(?=(?&gt;&lt;&lt;-(\w+)))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1908,7 +1949,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;-"([^"]*)")</string>
+			<string>(?=(?&gt;&lt;&lt;-"([^"]*)"))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1949,7 +1990,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;\=\s*&lt;&lt;'([^']*)')(?!\s+#\s*([Cc]|sh|[Jj]ava))</string>
+			<string>(?=(?&gt;\=\s*&lt;&lt;'([^']*)')(?!\s+#\s*([Cc]|sh|[Jj]ava)))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -1988,7 +2029,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(?&gt;&lt;&lt;-'([^']*)')</string>
+			<string>(?=(?&gt;&lt;&lt;-'([^']*)'))</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
@@ -2367,10 +2408,26 @@
 		<dict>
 			<key>begin</key>
 			<string>&lt;&lt;-?(?:\w+|(['"]?).*?\1)</string>
+			<key>beginCaptures</key>
+			<dict>
+				<key>0</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.ruby</string>
+				</dict>
+			</dict>
+			<key>contentName</key>
+			<string>source.trailing-space.ruby</string>
 			<key>end</key>
 			<string>$</string>
 			<key>patterns</key>
 			<array>
+				<dict>
+					<key>match</key>
+					<string>&lt;&lt;-?(?:\w+|(['"]?).*?\1)</string>
+					<key>name</key>
+					<string>punctuation.definition.string.begin.ruby</string>
+				</dict>
 				<dict>
 					<key>include</key>
 					<string>$self</string>

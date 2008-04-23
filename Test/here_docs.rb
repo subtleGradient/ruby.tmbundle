@@ -140,10 +140,37 @@ E2
 p [a,b,c]
 # >> ["hello world", 3, "a - b - c"]
 
+a, b, c = <<-E1.chomp
+hello world
+E1
+p [a,b,c]
+# >> ["hello world", nil, nil]
+
+a, b, c = <<-E1.chomp, 3, <<-E2.split(/\n/).join(" - ")
+hello world
+E1
+a
+b
+c
+E2
+p [a,b,c]
+# >> ["hello world", 3, "a - b - c"]
+
+a, b, c = <<-E1, <<-E2, <<-E3
+  hello world
+E1
+  abc
+E2
+  123
+E3
+p [a,b,c]
+# >> ["  hello world\n", "  abc\n", "  123\n"]
+
 # stuff on same line should be scoped
 # heredoc contents shouldn't be scoped
 p <<-heredoc1_1, "fred", 123.0, /regex/
 p <<-heredoc1_1, "fred", 123.0, /regex/
+heredoc1_1
 heredoc1_1
 # >> "p <<-heredoc1_1, \"fred\", 123.0, /regex/\n"
 # >> "fred"
